@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import Link from 'next/link';
 
 const Error = ({
     error,
@@ -51,13 +52,13 @@ const Error = ({
                         <RefreshCw className="w-5 h-5" />
                         Try Again
                     </button>
-                    <a
+                    <Link
                         href="/"
                         className="inline-flex items-center gap-2 border-2 border-gray-300 px-8 py-4 rounded-xl font-bold hover:bg-gray-50 transition-all text-black"
                     >
                         <Home className="w-5 h-5" />
                         Go to Homepage
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Support message */}
