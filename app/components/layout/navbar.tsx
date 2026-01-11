@@ -52,7 +52,7 @@ export function Navbar({ showSearch = true }: { showSearch?: boolean }) {
                                 <input
                                     type="text"
                                     placeholder="Search products..."
-                                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                                 />
                             </div>
                         </div>
