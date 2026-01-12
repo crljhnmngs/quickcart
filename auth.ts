@@ -2,9 +2,10 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
+import { loginSchema } from './lib/validations/auth';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-    session: { strategy: 'jwt' },
+    session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
     providers: [
         Credentials({
             credentials: {
@@ -12,25 +13,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password) {
-                    return null;
+                const validatedFields = loginSchema.safeParse(credentials);
+
+                if (!validatedFields.success) {
+                    throw new Error('Invalid credentials format');
                 }
 
+                const { email, password } = validatedFields.data;
+
                 const user = await prisma.user.findUnique({
-                    where: { email: credentials.email as string },
+                    where: { email },
                 });
 
                 if (!user || !user.password) {
-                    return null;
+                    throw new Error('Invalid email or password');
                 }
 
-                const isValid = await bcrypt.compare(
-                    credentials.password as string,
-                    user.password
-                );
+                const isValid = await bcrypt.compare(password, user.password);
 
                 if (!isValid) {
-                    return null;
+                    throw new Error('Invalid email or password');
                 }
 
                 return {

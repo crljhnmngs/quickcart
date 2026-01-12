@@ -73,7 +73,7 @@ export function Navbar({ showSearch = true }: { showSearch?: boolean }) {
                             </span>
                         </Link>
                         <Link
-                            href="/login"
+                            href="/profile"
                             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                         >
                             <User className="w-6 h-6 text-gray-600" />
