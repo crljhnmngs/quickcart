@@ -66,3 +66,50 @@ export const getProductById = unstable_cache(
         tags: ['product'],
     }
 );
+
+export const getProductsByIds = unstable_cache(
+    async (ids: string[]) => {
+        try {
+            if (!ids || ids.length === 0) return { success: true, data: [] };
+
+            const products = await prisma.product.findMany({
+                where: {
+                    id: { in: ids },
+                },
+            });
+
+            const missing = ids.filter(
+                (id) => !products.find((p) => p.id === id)
+            );
+            if (missing.length > 0) {
+                return {
+                    success: false,
+                    error: `Products not found: ${missing.join(', ')}`,
+                };
+            }
+
+            const plainProducts = products.map((product) => ({
+                id: product.id,
+                name: product.name,
+                price: product.price.toNumber(),
+                discount: product.discount?.toNumber() ?? null,
+                images: product.images,
+                stock: product.stock,
+                category: product.category,
+                rating: product.rating?.toNumber() ?? null,
+            }));
+
+            return { success: true, data: plainProducts };
+        } catch {
+            return {
+                success: false,
+                error: 'Failed to load products, please try again',
+            };
+        }
+    },
+    ['products-by-ids'],
+    {
+        revalidate: 3600,
+        tags: ['product'],
+    }
+);

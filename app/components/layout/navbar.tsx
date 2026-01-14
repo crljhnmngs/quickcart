@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, User, Search, Heart } from 'lucide-react';
+import { User, Search, Heart } from 'lucide-react';
+import { CartLink } from '../cart/cart-link';
 
 export function Navbar({ showSearch = true }: { showSearch?: boolean }) {
     return (
@@ -63,15 +64,7 @@ export function Navbar({ showSearch = true }: { showSearch?: boolean }) {
                         <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <Heart className="w-6 h-6 text-gray-600" />
                         </button>
-                        <Link
-                            href="/cart"
-                            className="p-2 hover:bg-gray-100 rounded-lg relative transition-colors"
-                        >
-                            <ShoppingCart className="w-6 h-6 text-gray-600" />
-                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
-                                3
-                            </span>
-                        </Link>
+                        <CartLink />
                         <Link
                             href="/profile"
                             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"

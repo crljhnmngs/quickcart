@@ -3,6 +3,7 @@ import { Heart, Star, PackageOpen } from 'lucide-react';
 import { ProductImage } from './product-image';
 import Link from 'next/link';
 import { getDiscountedPrice } from '@/lib/helpers';
+import { AddToCartButton } from '../buttons/add-to-cart';
 
 export const ProductList = async () => {
     const result = await getProducts();
@@ -93,9 +94,8 @@ export const ProductList = async () => {
                                     )}
                                 </div>
                             </div>
-                            <button className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-colors cursor-pointer">
-                                Add to Cart
-                            </button>
+                            {/* Add to cart */}
+                            <AddToCartButton productId={product.id} />
                         </div>
                     </div>
                 </Link>

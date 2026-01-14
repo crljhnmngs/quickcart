@@ -20,38 +20,17 @@ const Login = async () => {
                 return { error: 'Invalid email or password' };
             }
 
-            if (data.remember) {
-                const cookieStore = await cookies();
-                const sessionCookie =
-                    cookieStore.get('authjs.session-token') ||
-                    cookieStore.get('__Secure-authjs.session-token');
-
-                if (sessionCookie) {
-                    cookieStore.set(sessionCookie.name, sessionCookie.value, {
-                        maxAge: 30 * 24 * 60 * 60, // 30 days
-                        httpOnly: true,
-                        secure: process.env.NODE_ENV === 'production',
-                        sameSite: 'lax',
-                        path: '/',
-                    });
-                }
-            } else {
-                // Session expires when browser closes
-                const cookieStore = await cookies();
-                const sessionCookie =
-                    cookieStore.get('authjs.session-token') ||
-                    cookieStore.get('__Secure-authjs.session-token');
-
-                if (sessionCookie) {
-                    cookieStore.set(sessionCookie.name, sessionCookie.value, {
-                        httpOnly: true,
-                        secure: process.env.NODE_ENV === 'production',
-                        sameSite: 'lax',
-                        path: '/',
-                    });
-                }
+            const cookieStore = await cookies();
+            const sessionToken = cookieStore.get('authjs.session-token');
+            if (sessionToken) {
+                cookieStore.set('authjs.session-token', sessionToken.value, {
+                    httpOnly: true,
+                    sameSite: 'lax',
+                    path: '/',
+                    secure: process.env.NODE_ENV === 'production',
+                });
             }
-
+            console.log(cookieStore);
             return { success: true };
         } catch (error) {
             if (error instanceof AuthError) {

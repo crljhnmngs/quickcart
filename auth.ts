@@ -5,12 +5,29 @@ import bcrypt from 'bcryptjs';
 import { loginSchema } from './lib/validations/auth';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-    session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
+    session: {
+        strategy: 'jwt',
+    },
+    cookies: {
+        sessionToken: {
+            name:
+                process.env.NODE_ENV === 'production'
+                    ? '__Secure-authjs.session-token'
+                    : 'authjs.session-token',
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: process.env.NODE_ENV === 'production',
+            },
+        },
+    },
     providers: [
         Credentials({
             credentials: {
                 email: { label: 'Email', type: 'email' },
                 password: { label: 'Password', type: 'password' },
+                remember: { label: 'Remember', type: 'checkbox' },
             },
             async authorize(credentials) {
                 const validatedFields = loginSchema.safeParse(credentials);
@@ -40,6 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     email: user.email,
                     name: user.name,
                     isAdmin: user.isAdmin,
+                    remember: credentials.remember === 'true',
                 };
             },
         }),
@@ -48,6 +66,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         async jwt({ token, user }) {
             if (user) {
                 token.isAdmin = user.isAdmin;
+                token.remember = user.remember;
             }
             return token;
         },

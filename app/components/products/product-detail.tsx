@@ -9,6 +9,7 @@ import {
 import { getProductById } from '@/app/actions/products';
 import { getDiscountedPrice } from '@/lib/helpers';
 import { ProductDetailsImages } from './product-details-imgs';
+import { AddToCartButton } from '../buttons/add-to-cart';
 
 export const ProductDetail = async ({ id }: { id: string }) => {
     const result = await getProductById(id);
@@ -118,9 +119,10 @@ export const ProductDetail = async ({ id }: { id: string }) => {
                     </div>
                     {/* Add to cart */}
                     <div className="flex gap-4 mb-10">
-                        <button className="flex-1 bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-colors shadow-lg">
-                            Add to Cart
-                        </button>
+                        <AddToCartButton
+                            productId={result.data?.id}
+                            className="flex-1 bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-colors shadow-lg"
+                        />
                         <button className="px-6 border-2 border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 transition-colors">
                             <Heart className="w-7 h-7" />
                         </button>
