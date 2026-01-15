@@ -11,6 +11,7 @@ export const CartLink = () => {
         <Link
             href="/cart"
             className="p-2 hover:bg-gray-100 rounded-lg relative transition-colors"
+            title="View Cart"
         >
             <ShoppingCart className="w-6 h-6 text-gray-600" />
 

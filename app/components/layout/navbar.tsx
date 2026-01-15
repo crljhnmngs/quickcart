@@ -1,10 +1,11 @@
-'use client';
-
 import Link from 'next/link';
-import { User, Search, Heart } from 'lucide-react';
-import { CartLink } from '../cart/cart-link';
+import { Search } from 'lucide-react';
+import { auth } from '@/auth';
+import { NavbarActions } from './navbar-actions';
 
-export function Navbar({ showSearch = true }: { showSearch?: boolean }) {
+export async function Navbar({ showSearch = true }: { showSearch?: boolean }) {
+    const session = await auth();
+
     return (
         <nav className="bg-white border-b shadow-sm mb-8">
             <div className="max-w-7xl mx-auto px-6 py-4">
@@ -59,19 +60,8 @@ export function Navbar({ showSearch = true }: { showSearch?: boolean }) {
                         </div>
                     )}
 
-                    {/* Actions */}
-                    <div className="flex items-center gap-3">
-                        <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                            <Heart className="w-6 h-6 text-gray-600" />
-                        </button>
-                        <CartLink />
-                        <Link
-                            href="/profile"
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                        >
-                            <User className="w-6 h-6 text-gray-600" />
-                        </Link>
-                    </div>
+                    {/* Navbar actions */}
+                    <NavbarActions session={session} />
                 </div>
             </div>
         </nav>

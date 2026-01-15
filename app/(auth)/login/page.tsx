@@ -3,6 +3,7 @@ import { LoginInput } from '@/lib/validations/auth';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 
 const Login = async () => {
     const handleLogin = async (data: LoginInput & { remember?: boolean }) => {
@@ -30,7 +31,7 @@ const Login = async () => {
                     secure: process.env.NODE_ENV === 'production',
                 });
             }
-            console.log(cookieStore);
+
             return { success: true };
         } catch (error) {
             if (error instanceof AuthError) {
@@ -57,6 +58,16 @@ const Login = async () => {
 
                     {/* Form */}
                     <LoginForm onSubmit={handleLogin} />
+                    {/* Sign up link */}
+                    <p className="text-center text-sm text-gray-600 mt-6">
+                        {`Don't have an account? `}
+                        <Link
+                            href="signup"
+                            className="text-blue-600 font-bold hover:underline"
+                        >
+                            Sign up
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>
