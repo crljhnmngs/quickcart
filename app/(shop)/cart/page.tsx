@@ -1,5 +1,5 @@
 import { Navbar } from '@/app/components/layout/navbar';
-import { CartProductListClient } from '@/app/components/cart/cart-product-list-client';
+import { CartProductList } from '@/app/components/cart/cart-product-list';
 
 const CartPage = () => {
     return (
@@ -12,7 +12,7 @@ const CartPage = () => {
 
             <div className="flex gap-8">
                 {/* Cart items list */}
-                <CartProductListClient />
+                <CartProductList />
 
                 {/* Order summary sidebar */}
                 <div className="w-96 shrink-0">

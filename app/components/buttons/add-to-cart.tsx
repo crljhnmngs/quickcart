@@ -34,6 +34,7 @@ export const AddToCartButton = ({
                     position: 'top-right',
                     duration: 2000,
                 });
+                window.dispatchEvent(new Event('cart-updated'));
                 router.refresh();
             } else {
                 addItem(productId, 1);

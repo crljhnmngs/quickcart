@@ -7,6 +7,7 @@ import { useCartStore } from '@/store/cart-store';
 import toast from 'react-hot-toast';
 import { getDiscountedPrice } from '@/lib/helpers';
 import { ProductImage } from '../products/product-image';
+import { CartLoading } from './cart-loading';
 
 type Product = {
     id: string;
@@ -71,13 +72,7 @@ export const CartProductListClient = () => {
     }, [items, hydrated]);
 
     if (!hydrated || loading) {
-        return (
-            <div className="flex-1">
-                <div className="bg-white rounded-2xl shadow-lg p-6">
-                    <p>Loading cart...</p>
-                </div>
-            </div>
-        );
+        return <CartLoading />;
     }
 
     // Merge cart items with fetched product data
@@ -152,7 +147,7 @@ export const CartProductListClient = () => {
                                                             product?.rating &&
                                                             i <=
                                                                 Number(
-                                                                    product.rating
+                                                                    product.rating,
                                                                 )
                                                                 ? 'fill-yellow-400 text-yellow-400'
                                                                 : 'fill-gray-200 text-gray-200'
@@ -172,7 +167,7 @@ export const CartProductListClient = () => {
                                                     <p className="text-sm text-gray-400 line-through">
                                                         ₱
                                                         {originalTotal.toFixed(
-                                                            2
+                                                            2,
                                                         )}
                                                     </p>
                                                     <p className="text-sm text-green-600 font-semibold">
@@ -196,7 +191,7 @@ export const CartProductListClient = () => {
                                                     onClick={() =>
                                                         addItem(
                                                             item.productId,
-                                                            -1
+                                                            -1,
                                                         )
                                                     }
                                                 >
@@ -218,7 +213,7 @@ export const CartProductListClient = () => {
                                                     onClick={() =>
                                                         addItem(
                                                             item.productId,
-                                                            1
+                                                            1,
                                                         )
                                                     }
                                                 >
@@ -240,8 +235,8 @@ export const CartProductListClient = () => {
                                                     items.filter(
                                                         (i) =>
                                                             i.productId !==
-                                                            item.productId
-                                                    )
+                                                            item.productId,
+                                                    ),
                                                 )
                                             }
                                         >

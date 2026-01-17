@@ -19,7 +19,10 @@ export const NavbarActions = ({ session }: NavbarActionsProps) => {
                 <Heart className="w-6 h-6 text-gray-600" />
             </button>
 
-            <CartLink />
+            <CartLink
+                isAuthenticated={isAuthenticated}
+                userId={session?.user.id ?? ''}
+            />
 
             {isAuthenticated ? (
                 <>
