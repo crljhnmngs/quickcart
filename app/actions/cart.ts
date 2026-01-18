@@ -1,9 +1,10 @@
 'use server';
 
 import { auth } from '@/auth';
+import { logger } from '@/lib/logger';
 import prisma from '@/lib/prisma';
 
-export const addToCart = async (productId: string, quantity: number) => {
+export const addToCartForUser = async (productId: string, quantity: number) => {
     try {
         const session = await auth();
         if (!session) {
@@ -30,7 +31,8 @@ export const addToCart = async (productId: string, quantity: number) => {
         });
 
         return { success: true };
-    } catch {
+    } catch (error) {
+        logger.error('Failed to add item to cart', error);
         return {
             success: false,
             error: 'Failed to add item to cart',
@@ -38,14 +40,15 @@ export const addToCart = async (productId: string, quantity: number) => {
     }
 };
 
-export const getCartCount = async (userId: string) => {
+export const getCartCountByUserId = async (userId: string) => {
     try {
         const count = await prisma.cartItem.aggregate({
             where: { userId: userId },
             _sum: { quantity: true },
         });
         return { success: true, count: count._sum.quantity ?? 0 };
-    } catch {
+    } catch (error) {
+        logger.error('Failed to fetch cart count', error);
         return {
             success: false,
             error: 'Failed to fetch cart count',
@@ -71,7 +74,8 @@ export const removeFromCart = async (productId: string) => {
         });
 
         return { success: true };
-    } catch {
+    } catch (error) {
+        logger.error('Failed to remove item from cart', error);
         return {
             success: false,
             error: 'Failed to remove item from cart',
@@ -106,7 +110,8 @@ export const updateCartQuantity = async (
         });
 
         return { success: true };
-    } catch {
+    } catch (error) {
+        logger.error('Failed to update quantity', error);
         return {
             success: false,
             error: 'Failed to update quantity',
@@ -114,7 +119,7 @@ export const updateCartQuantity = async (
     }
 };
 
-export const getCartItems = async (userId: string) => {
+export const getCartItemsByUserId = async (userId: string) => {
     try {
         const session = await auth();
         if (!session) {
@@ -145,7 +150,8 @@ export const getCartItems = async (userId: string) => {
         }));
 
         return { success: true, data: plainCartItems };
-    } catch {
+    } catch (error) {
+        logger.error('Failed to fetch cart items', error);
         return {
             success: false,
             error: 'Failed to fetch cart items',

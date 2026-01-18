@@ -2,7 +2,7 @@ import { Star, Package } from 'lucide-react';
 import { getDiscountedPrice } from '@/lib/helpers';
 import { ProductImage } from '../products/product-image';
 import { CartItemActions } from './cart-item-actions';
-import { getCartItems } from '@/app/actions/cart';
+import { getCartItemsByUserId } from '@/app/actions/cart';
 
 type CartProductListServerProps = {
     userId: string;
@@ -11,7 +11,7 @@ type CartProductListServerProps = {
 export const CartProductListServer = async ({
     userId,
 }: CartProductListServerProps) => {
-    const result = await getCartItems(userId);
+    const result = await getCartItemsByUserId(userId);
 
     if (!result.success) {
         throw new Error(result.error);

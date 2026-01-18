@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
 import { useCartStore } from '@/store/cart-store';
 import { useCallback, useEffect, useState } from 'react';
-import { getCartCount } from '@/app/actions/cart';
+import { getCartCountByUserId } from '@/app/actions/cart';
 
 type CartLinkProps = {
     isAuthenticated: boolean;
@@ -24,7 +24,7 @@ export const CartLink = ({ isAuthenticated, userId }: CartLinkProps) => {
 
         setLoading(true);
         try {
-            const result = await getCartCount(userId);
+            const result = await getCartCountByUserId(userId);
             if (result.success) {
                 setDbCount(result.count ?? 0);
             }

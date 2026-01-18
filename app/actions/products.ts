@@ -1,5 +1,6 @@
 'use server';
 
+import { logger } from '@/lib/logger';
 import prisma from '@/lib/prisma';
 import { unstable_cache } from 'next/cache';
 
@@ -9,7 +10,8 @@ export const getProducts = async () => {
             orderBy: { createdAt: 'desc' },
         });
         return { success: true, data: products };
-    } catch {
+    } catch (error) {
+        logger.error('Failed to fetch products', error);
         return { success: false, error: 'Failed to fetch products' };
     }
 };
@@ -24,7 +26,8 @@ export const getFeaturedProducts = unstable_cache(
             });
 
             return { success: true, data: products };
-        } catch {
+        } catch (error) {
+            logger.error('Failed to fetch featured products', error);
             return {
                 success: false,
                 error: 'Failed to fetch featured products',
@@ -35,7 +38,7 @@ export const getFeaturedProducts = unstable_cache(
     {
         revalidate: 3600,
         tags: ['featured-products'],
-    }
+    },
 );
 
 export const getProductById = unstable_cache(
@@ -53,7 +56,8 @@ export const getProductById = unstable_cache(
             }
 
             return { success: true, data: product };
-        } catch {
+        } catch (error) {
+            logger.error(`Failed to load product with id: ${id}`, error);
             return {
                 success: false,
                 error: 'Failed to load product, please try again',
@@ -64,7 +68,7 @@ export const getProductById = unstable_cache(
     {
         revalidate: 3600,
         tags: ['product'],
-    }
+    },
 );
 
 export const getProductsByIds = unstable_cache(
@@ -79,7 +83,7 @@ export const getProductsByIds = unstable_cache(
             });
 
             const missing = ids.filter(
-                (id) => !products.find((p) => p.id === id)
+                (id) => !products.find((p) => p.id === id),
             );
             if (missing.length > 0) {
                 return {
@@ -100,7 +104,11 @@ export const getProductsByIds = unstable_cache(
             }));
 
             return { success: true, data: plainProducts };
-        } catch {
+        } catch (error) {
+            logger.error(
+                `Failed to load products by ids: ${ids.join(', ')}`,
+                error,
+            );
             return {
                 success: false,
                 error: 'Failed to load products, please try again',
@@ -111,5 +119,5 @@ export const getProductsByIds = unstable_cache(
     {
         revalidate: 3600,
         tags: ['product'],
-    }
+    },
 );

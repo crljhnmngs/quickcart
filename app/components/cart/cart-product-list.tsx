@@ -4,7 +4,7 @@ import { CartProductListServer } from './cart-product-list-server';
 import { CartError } from './cart-error';
 import { ErrorBoundary } from '../ui/error-boundary';
 import { Suspense } from 'react';
-import { CartLoading } from './cart-loading';
+import { CartSkeleton } from '../ui/skeletons';
 
 export const CartProductList = async () => {
     const session = await auth();
@@ -12,7 +12,7 @@ export const CartProductList = async () => {
     if (session?.user) {
         return (
             <ErrorBoundary fallback={<CartError />}>
-                <Suspense fallback={<CartLoading />}>
+                <Suspense fallback={<CartSkeleton />}>
                     {/* Authenticated user - fetch from database */}
                     <CartProductListServer userId={session.user.id} />
                 </Suspense>

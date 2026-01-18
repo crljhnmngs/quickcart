@@ -5,6 +5,7 @@ import prisma from '@/lib/prisma';
 import { signupSchema } from '@/lib/validations/auth';
 import bcrypt from 'bcryptjs';
 import { SignUpInput } from '@/lib/validations/auth';
+import { logger } from '@/lib/logger';
 
 export const handleLogout = async () => {
     await signOut({ redirectTo: '/' });
@@ -52,6 +53,7 @@ export const handleSignup = async (data: SignUpInput) => {
                 'Account created! Please check your email to verify your account.',
         };
     } catch (error) {
+        logger.error('Error occurred while signing up user', error);
         if (error instanceof Error) {
             return { success: false, error: error.message };
         }

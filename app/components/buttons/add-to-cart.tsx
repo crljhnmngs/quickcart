@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
-import { addToCart } from '@/app/actions/cart';
+import { addToCartForUser } from '@/app/actions/cart';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useCartStore } from '@/store/cart-store';
@@ -27,7 +27,7 @@ export const AddToCartButton = ({
         setLoading(true);
 
         try {
-            const result = await addToCart(productId, 1);
+            const result = await addToCartForUser(productId, 1);
 
             if (result.success) {
                 toast.success('Added to cart!', {

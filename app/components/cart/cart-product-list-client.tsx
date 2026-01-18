@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { getProductsByIds } from '@/app/actions/products';
 import { Star, Package, Trash2 } from 'lucide-react';
 import { useCartStore } from '@/store/cart-store';
-import toast from 'react-hot-toast';
 import { getDiscountedPrice } from '@/lib/helpers';
 import { ProductImage } from '../products/product-image';
-import { CartLoading } from './cart-loading';
+import { logger } from '@/lib/logger';
+import { CartSkeleton } from '../ui/skeletons';
 
 type Product = {
     id: string;
@@ -54,15 +54,16 @@ export const CartProductListClient = () => {
                 if (result.success && result.data) {
                     setProducts(result.data);
                 } else {
-                    console.error(result.error);
+                    logger.error('Failed to getProductsByIds', result.error);
                     setProducts([]);
                 }
             } catch (err) {
-                console.error('Failed to fetch products', err);
-                toast.error('Failed to fetch products', {
-                    position: 'top-right',
-                });
-                setProducts([]);
+                logger.error('Failed to fetch products', err);
+                if (err instanceof Error) {
+                    throw new Error(err.message);
+                }
+
+                throw new Error(String(err));
             } finally {
                 setLoading(false);
             }
@@ -72,7 +73,7 @@ export const CartProductListClient = () => {
     }, [items, hydrated]);
 
     if (!hydrated || loading) {
-        return <CartLoading />;
+        return <CartSkeleton />;
     }
 
     // Merge cart items with fetched product data
