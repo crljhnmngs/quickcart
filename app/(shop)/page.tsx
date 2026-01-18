@@ -8,10 +8,18 @@ import { ProductListSkeleton } from '../components/ui/skeletons';
 import { ErrorBoundary } from '../components/ui/error-boundary';
 import { ProductsError } from '../components/shop/products-error';
 import { Navbar } from '../components/layout/navbar';
+import { auth } from '@/auth';
+import { CartSync } from '../components/cart/cart-sync';
 
 export default async function HomePage() {
+    const session = await auth();
+
     return (
         <main className="max-w-7xl mx-auto px-6">
+            {/* Sync local cart to database after login */}
+            {session?.user && <CartSync />}
+
+            {/* Navbar */}
             <Navbar />
             {/* Hero Section */}
             <section className="bg-linear-to-r from-blue-600 via-purple-600 to-pink-500 text-white p-16 rounded-2xl mb-12 shadow-xl">

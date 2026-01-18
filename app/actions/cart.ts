@@ -159,3 +159,44 @@ export const getCartItemsByUserId = async (userId: string) => {
         };
     }
 };
+
+export const syncLocalCartToDatabase = async (
+    localCartItems: { productId: string; quantity: number }[],
+) => {
+    try {
+        const session = await auth();
+        if (!session) {
+            return { success: false, error: 'Not authenticated' };
+        }
+
+        // Process each local cart item
+        for (const item of localCartItems) {
+            await prisma.cartItem.upsert({
+                where: {
+                    userId_productId: {
+                        userId: session.user.id,
+                        productId: item.productId,
+                    },
+                },
+                update: {
+                    quantity: {
+                        increment: item.quantity,
+                    },
+                },
+                create: {
+                    userId: session.user.id,
+                    productId: item.productId,
+                    quantity: item.quantity,
+                },
+            });
+        }
+
+        return { success: true };
+    } catch (error) {
+        logger.error('Error syncing cart:', error);
+        return {
+            success: false,
+            error: 'Failed to sync cart',
+        };
+    }
+};

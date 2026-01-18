@@ -32,7 +32,6 @@ const Login = async () => {
                 });
             }
 
-            //TODO: Add syncing of local storage cart to user data in database after login
             return { success: true };
         } catch (error) {
             if (error instanceof AuthError) {
