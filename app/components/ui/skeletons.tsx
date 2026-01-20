@@ -215,3 +215,33 @@ export const CartSkeleton = () => {
         </div>
     );
 };
+
+export const CartSummarySkeleton = () => {
+    return (
+        <div className="w-96 shrink-0">
+            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-32 animate-pulse">
+                <div className="h-8 bg-gray-200 rounded w-3/4 mb-6"></div>
+                <div className="space-y-4 mb-6">
+                    <div className="flex justify-between">
+                        <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                    </div>
+                    <div className="flex justify-between">
+                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                        <div className="h-4 bg-gray-200 rounded w-1/5"></div>
+                    </div>
+                    <div className="flex justify-between">
+                        <div className="h-4 bg-gray-200 rounded w-1/5"></div>
+                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                    </div>
+                    <div className="border-t-2 pt-4 flex justify-between">
+                        <div className="h-6 bg-gray-200 rounded w-1/4"></div>
+                        <div className="h-8 bg-gray-200 rounded w-1/3"></div>
+                    </div>
+                </div>
+                <div className="h-14 bg-gray-200 rounded-xl mb-3"></div>
+                <div className="h-12 bg-gray-200 rounded-xl"></div>
+            </div>
+        </div>
+    );
+};
