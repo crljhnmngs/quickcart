@@ -49,19 +49,22 @@ export const CartOrderSummary = ({ userId }: CartOrderSummaryProps) => {
                     </div>
                 </div>
 
-                <Link href="/checkout" className="w-full block">
-                    <button
-                        className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 mb-3 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                        disabled={itemCount === 0}
-                    >
-                        Proceed to Checkout
-                    </button>
+                <Link
+                    href="/checkout"
+                    className={`w-full block bg-blue-600 text-white py-4 rounded-xl font-bold text-lg text-center mb-3 ${
+                        itemCount === 0
+                            ? 'opacity-50 pointer-events-none'
+                            : 'hover:bg-blue-700'
+                    }`}
+                >
+                    Proceed to Checkout
                 </Link>
 
-                <Link href="/products" className="w-full block">
-                    <button className="w-full border-2 border-gray-300 py-3 rounded-xl hover:bg-gray-50 font-semibold text-black cursor-pointer transition-colors">
-                        Continue Shopping
-                    </button>
+                <Link
+                    href="/products"
+                    className="w-full block border-2 border-gray-300 py-3 rounded-xl hover:bg-gray-50 font-semibold text-black text-center cursor-pointer transition-colors"
+                >
+                    Continue Shopping
                 </Link>
             </div>
         </div>
