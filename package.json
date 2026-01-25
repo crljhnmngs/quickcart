@@ -12,6 +12,8 @@
         "@hookform/resolvers": "^5.2.2",
         "@prisma/adapter-pg": "^7.2.0",
         "@prisma/client": "^7.2.0",
+        "@stripe/react-stripe-js": "^5.4.1",
+        "@stripe/stripe-js": "^8.6.4",
         "bcryptjs": "^3.0.3",
         "dotenv": "^17.2.3",
         "lucide-react": "^0.562.0",
@@ -22,6 +24,7 @@
         "react-dom": "19.2.3",
         "react-hook-form": "^7.71.0",
         "react-hot-toast": "^2.6.0",
+        "stripe": "^20.2.0",
         "zod": "^4.3.5",
         "zustand": "^5.0.10"
     },

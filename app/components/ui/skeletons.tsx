@@ -245,3 +245,118 @@ export const CartSummarySkeleton = () => {
         </div>
     );
 };
+
+export const CheckoutSkeleton = () => {
+    return (
+        <>
+            {/* Checkout Form Skeleton */}
+            <div className="flex-1 space-y-6">
+                {/* Shipping Address Section Skeleton */}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                    <div className="h-8 bg-gray-200 rounded-lg w-48 mb-6 animate-pulse" />
+                    <div className="grid md:grid-cols-2 gap-4">
+                        {/* First Name & Last Name */}
+                        <div>
+                            <div className="h-4 bg-gray-200 rounded w-24 mb-2 animate-pulse" />
+                            <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
+                        </div>
+                        <div>
+                            <div className="h-4 bg-gray-200 rounded w-24 mb-2 animate-pulse" />
+                            <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
+                        </div>
+                        {/* Email */}
+                        <div className="md:col-span-2">
+                            <div className="h-4 bg-gray-200 rounded w-16 mb-2 animate-pulse" />
+                            <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
+                        </div>
+                        {/* Address */}
+                        <div className="md:col-span-2">
+                            <div className="h-4 bg-gray-200 rounded w-20 mb-2 animate-pulse" />
+                            <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
+                        </div>
+                        {/* City & Postal Code */}
+                        <div>
+                            <div className="h-4 bg-gray-200 rounded w-16 mb-2 animate-pulse" />
+                            <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
+                        </div>
+                        <div>
+                            <div className="h-4 bg-gray-200 rounded w-24 mb-2 animate-pulse" />
+                            <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
+                        </div>
+                        {/* Country */}
+                        <div className="md:col-span-2">
+                            <div className="h-4 bg-gray-200 rounded w-20 mb-2 animate-pulse" />
+                            <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Payment Method Section Skeleton */}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                    <div className="h-8 bg-gray-200 rounded-lg w-44 mb-6 animate-pulse" />
+                    <div className="space-y-3 mb-6">
+                        {/* Payment options */}
+                        <div className="h-20 bg-gray-200 rounded-xl animate-pulse" />
+                        <div className="h-20 bg-gray-200 rounded-xl animate-pulse" />
+                    </div>
+                </div>
+
+                {/* Submit Button Skeleton */}
+                <div className="h-14 bg-gray-200 rounded-xl animate-pulse mb-4" />
+            </div>
+
+            {/* Checkout Summary Skeleton */}
+            <div className="w-96 shrink-0">
+                <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-32">
+                    {/* Title Skeleton */}
+                    <div className="h-8 bg-gray-200 rounded-lg w-40 mb-6 animate-pulse" />
+
+                    {/* Cart Items Skeleton */}
+                    <div className="space-y-4 mb-6">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="flex gap-3 pb-4 border-b">
+                                {/* Image Skeleton */}
+                                <div className="w-20 h-20 bg-gray-200 rounded-lg shrink-0 animate-pulse" />
+
+                                <div className="flex-1 space-y-2">
+                                    {/* Product name skeleton */}
+                                    <div className="h-4 bg-gray-200 rounded w-full animate-pulse" />
+                                    <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse" />
+                                    {/* Quantity skeleton */}
+                                    <div className="h-3 bg-gray-200 rounded w-16 animate-pulse" />
+                                </div>
+
+                                {/* Price skeleton */}
+                                <div className="h-5 bg-gray-200 rounded w-20 animate-pulse" />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Order Totals Skeleton */}
+                    <div className="border-t-2 pt-4 space-y-2 mb-6">
+                        {/* Subtotal */}
+                        <div className="flex justify-between">
+                            <div className="h-4 bg-gray-200 rounded w-20 animate-pulse" />
+                            <div className="h-4 bg-gray-200 rounded w-24 animate-pulse" />
+                        </div>
+                        {/* Shipping */}
+                        <div className="flex justify-between">
+                            <div className="h-4 bg-gray-200 rounded w-20 animate-pulse" />
+                            <div className="h-4 bg-gray-200 rounded w-16 animate-pulse" />
+                        </div>
+                        {/* Tax */}
+                        <div className="flex justify-between">
+                            <div className="h-4 bg-gray-200 rounded w-24 animate-pulse" />
+                            <div className="h-4 bg-gray-200 rounded w-20 animate-pulse" />
+                        </div>
+                        {/* Total */}
+                        <div className="border-t-2 pt-3 flex justify-between items-center">
+                            <div className="h-6 bg-gray-200 rounded w-16 animate-pulse" />
+                            <div className="h-9 bg-gray-200 rounded w-32 animate-pulse" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};

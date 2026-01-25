@@ -13,7 +13,6 @@ interface AuthRequest extends NextRequest {
 export default auth((req: AuthRequest) => {
     const isLoggedIn = !!req.auth;
     const isAdmin = req.auth?.user?.isAdmin;
-
     //Root path - redirect when user is admin
     if (req.nextUrl.pathname === '/') {
         if (isLoggedIn && isAdmin) {
@@ -41,7 +40,8 @@ export default auth((req: AuthRequest) => {
     // Protect /user routes
     if (
         req.nextUrl.pathname.startsWith('/orders') ||
-        req.nextUrl.pathname.startsWith('/profile')
+        req.nextUrl.pathname.startsWith('/profile') ||
+        req.nextUrl.pathname.startsWith('/checkout')
     ) {
         if (!isLoggedIn) {
             return NextResponse.redirect(new URL('/login', req.url));
@@ -56,6 +56,7 @@ export const config = {
     matcher: [
         '/',
         '/login',
+        '/checkout/:path*',
         '/products/:path*',
         '/admin/:path*',
         '/orders/:path*',
