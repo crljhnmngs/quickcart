@@ -26,10 +26,10 @@ export async function Navbar({ showSearch = true }: { showSearch?: boolean }) {
                                 Products
                             </Link>
                             <Link
-                                href="/categories"
+                                href="/orders"
                                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                             >
-                                Categories
+                                Orders
                             </Link>
                             <Link
                                 href="/deals"
